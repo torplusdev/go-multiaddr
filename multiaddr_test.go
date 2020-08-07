@@ -149,6 +149,10 @@ func TestConstructSucceeds(t *testing.T) {
 		"/ip4/127.0.0.1/ipfs/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC/tcp/1234/unix/stdio",
 		"/ip4/127.0.0.1/p2p/QmcgpsyWgH8Y8ajJz1Cu72KnS5uo2Aa2LpzU7kinSupNKC/tcp/1234/unix/stdio",
 		"/ip4/127.0.0.1/tcp/9090/http/p2p-webrtc-direct",
+		"/ip4/127.0.0.1/tcp/127/ws",
+		"/ip4/127.0.0.1/tcp/127/ws",
+		"/ip4/127.0.0.1/tcp/127/wss",
+		"/ip4/127.0.0.1/tcp/127/wss",
 	}
 
 	for _, a := range cases {
@@ -509,8 +513,8 @@ func TestRoundTrip(t *testing.T) {
 		"/ip4/127.0.0.1/tcp/123",
 		"/ip4/127.0.0.1/udp/123",
 		"/ip4/127.0.0.1/udp/123/ip6/::",
-		"/ipfs/QmbHVEEepCi7rn7VL7Exxpd2Ci9NNB6ifvqwhsrbRMgQFP",
-		"/ipfs/QmbHVEEepCi7rn7VL7Exxpd2Ci9NNB6ifvqwhsrbRMgQFP/unix/a/b/c",
+		"/p2p/QmbHVEEepCi7rn7VL7Exxpd2Ci9NNB6ifvqwhsrbRMgQFP",
+		"/p2p/QmbHVEEepCi7rn7VL7Exxpd2Ci9NNB6ifvqwhsrbRMgQFP/unix/a/b/c",
 	} {
 		ma, err := NewMultiaddr(s)
 		if err != nil {
@@ -523,7 +527,6 @@ func TestRoundTrip(t *testing.T) {
 	}
 }
 
-// XXX: Change this test when we switch to /p2p by default.
 func TestIPFSvP2P(t *testing.T) {
 	var (
 		p2pAddr  = "/p2p/QmbHVEEepCi7rn7VL7Exxpd2Ci9NNB6ifvqwhsrbRMgQFP"
@@ -535,8 +538,8 @@ func TestIPFSvP2P(t *testing.T) {
 		if err != nil {
 			t.Errorf("error when parsing %q: %s", s, err)
 		}
-		if ma.String() != ipfsAddr {
-			t.Errorf("expected %q, got %q", ipfsAddr, ma.String())
+		if ma.String() != p2pAddr {
+			t.Errorf("expected %q, got %q", p2pAddr, ma.String())
 		}
 	}
 }
