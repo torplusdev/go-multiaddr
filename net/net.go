@@ -172,6 +172,8 @@ func (d *Dialer) DialContext(ctx context.Context, remote ma.Multiaddr) (Conn, er
 		if err != nil {
 			return nil, err
 		}
+	case "onion", "onion3":
+		return nil, fmt.Errorf("not implemented!")
 	default:
 		return nil, fmt.Errorf("unrecognized network: %s", rnet)
 	}
@@ -224,9 +226,9 @@ func (nla *netListenerAdapter) Accept() (net.Conn, error) {
 
 // NetListener turns this Listener into a net.Listener.
 //
-// * Connections returned from Accept implement multiaddr/net Conn.
+// * Connections returned from Accept implement multiaddr-net Conn.
 // * Calling WrapNetListener on the net.Listener returned by this function will
-//   return the original (underlying) multiaddr/net Listener.
+//   return the original (underlying) multiaddr-net Listener.
 func NetListener(l Listener) net.Listener {
 	return &netListenerAdapter{l}
 }
